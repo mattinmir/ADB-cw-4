@@ -10,7 +10,9 @@ filtered = FILTER joined BY state_statenames::state_name IS NULL;
 
 filtered_dist = DISTINCT filtered;
 
-STORE filtered INTO 'q1' USING PigStorage(',');
+ordered = ORDER filtered_dist BY feature_statenames::state_name;
+
+STORE ordered INTO 'q1' USING PigStorage(',');
 
 
 
