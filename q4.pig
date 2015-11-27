@@ -10,7 +10,7 @@ top5 = FOREACH grouped {
 	sorted = ORDER nonulls BY population DESC;
 	top = LIMIT sorted 5;
 	
-	GENERATE FLATTEN(top);
+	GENERATE FLATTEN(top) AS (state_name, name, population);
 	}
 	 
 
