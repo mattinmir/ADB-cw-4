@@ -8,9 +8,11 @@ joined = JOIN feature_statenames BY state_name LEFT, state_statenames BY state_n
 
 filtered = FILTER joined BY state_statenames::state_name IS NULL;
 
-filtered_dist = DISTINCT filtered;
+nonulls = FOREACH filtered GENERATE feature_statenames::state_name;
 
-ordered = ORDER filtered_dist BY feature_statenames::state_name;
+filtered_dist = DISTINCT nonulls;
+
+ordered = ORDER filtered_dist BY state_name;
 
 STORE ordered INTO 'q1' USING PigStorage(',');
 
